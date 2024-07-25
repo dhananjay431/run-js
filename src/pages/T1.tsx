@@ -9,7 +9,7 @@ function T1() {
   let sb = new Subject();
 
   window.console.log = function (data: any) {
-    document.getElementById('demo').innerHTML = JSON.stringify(data, null, 4);
+    document.getElementById('demo').innerHTML += '<pre>'+JSON.stringify(data, null, 4)+'</pre>';
   };
   useEffect(() => {
     sb.pipe(debounceTime(1000)).subscribe((resp: any) => {
@@ -25,6 +25,11 @@ function T1() {
     ed.getSession().setMode('ace/mode/javascript');
     ed.setTheme('ace/theme/monokai');
 
+    
+
+ed.setOptions({
+    enableBasicAutocompletion: true
+})
     ed.session.on('change', function (delta: any) {
       sb.next(ed.getValue());
     });
@@ -37,9 +42,9 @@ function T1() {
         </div>
         <div
           className="col-6 text-bg-dark"
-          style={{ height: '100vh', 'overflow-x': 'scroll' }}
+          style={{ height: '100vh', 'overflow-x': 'scroll' }} id="demo"
         >
-          <pre className="w-100" id="demo"></pre>
+
         </div>
       </div>
     </div>
