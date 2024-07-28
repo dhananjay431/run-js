@@ -5,9 +5,9 @@ import Test from './pages/Test.tsx';
 import T1 from './pages/T1.tsx';
 import './index.css';
 import '../public/css/bootstrap.min.css'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { createHashRouter, RouterProvider } from 'react-router-dom';
 
-const router = createBrowserRouter([
+const router = createHashRouter([
   {
     path: '/',
     element: <App />,
