@@ -8,14 +8,16 @@ function T1() {
 
   let sb = new Subject();
 
-  window.console.log = function (data: any) {
-    document.getElementById('demo').innerHTML += '<pre>'+JSON.stringify(data, null, 4)+'</pre>';
+  window.console.log = function (...data: any) {
+    let x = data.map((d:any) => '<pre>'+JSON.stringify(d,null,4)+'</pre>');
+    document.getElementById('demo').innerHTML +=x.join("");
   };
   useEffect(() => {
     sb.pipe(debounceTime(1000)).subscribe((resp: any) => {
       if (resp != '') {
+ 
         ed.getSession().getSelection().clearSelection();
-        document.getElementById('demo').innerHTML = '';
+        
         let xx = new Function('_', 'R', resp);
         xx(_, R);
       }
@@ -31,6 +33,8 @@ ed.setOptions({
     enableBasicAutocompletion: true
 })
     ed.session.on('change', function (delta: any) {
+      console.log(delta);
+      document.getElementById('demo').innerHTML = '';
       sb.next(ed.getValue());
     });
   }, []);
@@ -42,7 +46,7 @@ ed.setOptions({
         </div>
         <div
           className="col-6 text-bg-dark"
-          style={{ height: '100vh', 'overflow-x': 'scroll' }} id="demo"
+          style={{ height: '100vh', overflowX: 'scroll' }} id="demo"
         >
 
         </div>
